@@ -6,7 +6,7 @@
 /*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:31:34 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/10/28 16:56:31 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/10/28 16:59:59 by gdaignea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Bitcoin&	Bitcoin::operator=(Bitcoin const& rhs) {
 	return *this;
 }
 
-std::map<std::string, double>  const&	Bitcoin::getRatesData() const {
+std::map<std::string, float>  const&	Bitcoin::getRatesData() const {
 	return _ratesData;
 }
 
@@ -86,7 +86,7 @@ bool	isValueValid(double value) {
 
 void	Bitcoin::findClosestDate(std::string& date, float& value) {
 
-	std::map<std::string, double>::const_iterator	it = _ratesData.lower_bound(date);
+	std::map<std::string, float>::const_iterator	it = _ratesData.lower_bound(date);
 
 	if (it == _ratesData.begin()) {
 		std::cout << "Error: date not found: date is prior to the first of the list => " << it->first << std::endl;
