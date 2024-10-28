@@ -6,7 +6,7 @@
 /*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:31:34 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/10/28 16:59:59 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/10/28 17:01:21 by gdaignea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ bool	isDateValid(std::string& date) {
 	return true;
 }
 
-bool	isValueValid(double value) {
+bool	isValueValid(float value) {
 	if (value < 0) {
-		std::cerr << "Error: not a positive number" << std::endl;
+		std::cerr << "Error: not a positive number." << std::endl;
 		return false;
 	}
 	else if (value > 1000) {
-		std::cerr << "Error: too large number" << std::endl;
+		std::cerr << "Error: too large number." << std::endl;
 		return false;
 	}
 	return true;
