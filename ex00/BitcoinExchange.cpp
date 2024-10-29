@@ -6,7 +6,7 @@
 /*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/25 10:31:34 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/10/28 17:01:21 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/10/29 11:06:43 by gdaignea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,25 @@ bool	isDateValid(std::string& date) {
 	int month = ft_atoi(date.substr(5, 2));
 	int	day = ft_atoi(date.substr(8, 2));
 
-	if (month < 1 || month > 12 || day > 31 || day < 1 || year > 2024) 
+	if (year > 2024 || year < 0 || month < 1 || month > 12 || day > 31 || day < 1) 
 		return false;
 	if (month == 2 && day > 29)
 		return false;
 	return true;
 }
 
-bool	isValueValid(float value) {
+bool	isValueValid(std::istringstream& lineStream, float& value) {
+	
+	//check if there is extra character left on stream after putting numbers in value
+	std::string	extra;
+	std::getline(lineStream, extra);
+	extra.erase(0, extra.find_first_not_of(" \t"));
+	if (!extra.empty()) {
+		std::cerr << "Error: value is not a number" << std::endl;
+		return false;
+	}
+	
+	//then check if value is between 0 && 1000
 	if (value < 0) {
 		std::cerr << "Error: not a positive number." << std::endl;
 		return false;
@@ -117,7 +128,7 @@ void	Bitcoin::displayBtcAmount(std::ifstream& inputFile) {
 				continue;
 			}
 			if (lineStream >> value) {
-				if (isValueValid(value))
+				if (isValueValid(lineStream, value))
 					findClosestDate(date, value);
 			}
 			else {
