@@ -6,7 +6,7 @@
 /*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:22:42 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/10/31 15:32:21 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/11/04 14:50:29 by gdaignea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <sstream>
 # include <list>
 # include <vector>
+# include <algorithm>
+# include <time.h>
+# include <typeinfo>
 
 class PmergeMe {
 
@@ -36,4 +39,7 @@ class PmergeMe {
 	std::vector<int> const&	getVector() const;
 
 	void	extractNumbers(int ac, char **av);
+	void	fordJohnsonSort();
 };
+
+int	ft_atoi(const std::string& str);
