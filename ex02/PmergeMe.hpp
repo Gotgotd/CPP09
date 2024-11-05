@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gautier <gautier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:22:42 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/11/04 14:50:29 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/11/05 15:50:20 by gautier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ class PmergeMe {
 	std::list<int> const&	getList() const;
 	std::vector<int> const&	getVector() const;
 
+	void	runSorting(int ac, char** av);
 	void	extractNumbers(int ac, char **av);
-	void	fordJohnsonSort();
 };
 
 int	ft_atoi(const std::string& str);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PmergeMe.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gdaignea <gdaignea@student.42.fr>          +#+  +:+       +#+        */
+/*   By: gautier <gautier@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/30 10:22:55 by gdaignea          #+#    #+#             */
-/*   Updated: 2024/11/04 17:54:41 by gdaignea         ###   ########.fr       */
+/*   Updated: 2024/11/05 17:01:27 by gautier          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,34 +53,54 @@ void	PmergeMe::extractNumbers(int ac, char** av) {
 3. Insert Smaller Elements: Insert the smaller elements of the first 2 numbers into the sorted list of larger elements.
 4. Handle Unpaired Elements: If there’s an unpaired element, insert it into the correct position.
 */
-void	PmergeMe::fordJohnsonSort() {
+void	PmergeMe::runSorting(int ac, char** av) {
 	
+	extractNumbers(ac, av);
+
 	if(isSorted(_list) && isSorted(_vector)) {
 		std::cout << "numbers are already sorted" << std::endl;
 		return;
 	}
 
 	std::cout << "Before:\t";
-	for (int i = 0; i < _vector.size(); i++) {
+	for (size_t i = 0; i < _vector.size(); i++) {
 		std::cout << _vector[i] << " ";
 	}
 	std::cout << std::endl;
 	
 	if (_list.size() == 2 && _vector.size() == 2) {
+		clock_t l_start, l_end;
+		l_start = clock();
 		sortTwo(_list);
+		l_end = clock();
+
+		clock_t v_start, v_end;
+		v_start = clock();
 		sortTwo(_vector);
+		v_end = clock();
+		
+		std::cout << "After :\t" << _vector[0] << " " << _vector[1] << std::endl;
+		std::cout << "Time to process a range of 2 elements with std::list: " << static_cast<double>(l_end - l_start) / CLOCKS_PER_SEC * 1000 << "ms" << std::endl;
+		std::cout << "Time to process a range of 2 elements with std::vector: " << static_cast<double>(v_end - v_start) / CLOCKS_PER_SEC * 1000 << "ms"<< std::endl;
 		return;
 	}
 
-	int start, end;
-	start = clock();
-	std::list<int>	listMaxs = findMaxNumbers(_list);
-	std::list<int>	listSubSort = mergeSort(listMaxs);
+	clock_t l_start, l_end;
+	l_start = clock();
+	_list = fordJohnsonSort(_list);
+	l_end = clock();
 
-	std::list<int>::iterator	it = _list.begin();
-	std::advance(it, 2);
-	int	firstPairMin = *std::min_element(_list.begin(), it);	
-	
-	std::vector<int>	vectorMaxs = findMaxNumbers(_vector);
+	clock_t v_start, v_end;
+	v_start = clock();
+	_vector = fordJohnsonSort(_vector);
+	v_end = clock();
 
+	std::cout << "After :\t";
+	for (size_t i = 0; i < _vector.size(); i++) {
+		std::cout << _vector[i] << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << "Time to process a range of " <<  _list.size() << " elements with std::list: " << static_cast<double>(l_end - l_start) / CLOCKS_PER_SEC * 1000 << "ms" << std::endl;
+	std::cout << "Time to process a range of " <<  _vector.size() << " elements with std::vector: " << static_cast<double>(v_end - v_start) / CLOCKS_PER_SEC * 1000 << "ms" << std::endl;
 }
